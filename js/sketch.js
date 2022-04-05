@@ -1,16 +1,5 @@
 const generations = [];
 
-const rules = {
-  "000": 0,
-  "001": 1,
-  "010": 1,
-  "011": 0,
-  100: 1,
-  101: 1,
-  110: 0,
-  111: 0,
-};
-
 const genLength = 300;
 
 function setup() {
@@ -45,30 +34,28 @@ function draw() {
 }
 
 function nextGeneration() {
-  const lastGen = generations[generations.length - 1];
-  const nextGen = [];
   let PrevIndex;
   let NextIndex;
   let Neighbourhood;
+  const lastGen = generations[generations.length - 1];
+  const nextGen = [];
   const rule = 30;
-  let RuleAsBinary = rule.toString(2);
 
-  while (RuleAsBinary.length < 8) RuleAsBinary = "0" + RuleAsBinary;
-  RuleAsBinary = Array.from(RuleAsBinary).map(Number);
+  const RuleAsBinary = ("0".repeat(8) + rule.toString(2))
+    .slice(-8)
+    .split("")
+    .map(Number);
 
-  /* for (let i = 0; i < lastGen.length; i++) {
-    let rule = "";
-
-    for (let j = i - 1; j <= i + 1; j++) {
-      if (j < 0) {
-        rule += lastGen[lastGen.length - 1];
-      } else if (j >= lastGen.length) {
-        rule += lastGen[0];
-      } else rule += lastGen[j];
-    }
-
-    nextGen.push(rules[rule]);
-  } */
+  const rulesValues = {
+    "000": RuleAsBinary[7],
+    "001": RuleAsBinary[6],
+    "010": RuleAsBinary[5],
+    "011": RuleAsBinary[4],
+    100: RuleAsBinary[3],
+    101: RuleAsBinary[2],
+    110: RuleAsBinary[1],
+    111: RuleAsBinary[0],
+  };
 
   for (let i = 0; i < lastGen.length; i++) {
     if (i == 0) PrevIndex = lastGen.length - 1;
@@ -82,33 +69,7 @@ function nextGeneration() {
       lastGen[i].toString() +
       lastGen[NextIndex].toString();
 
-    switch (Neighbourhood) {
-      case "111":
-        nextGen.push(RuleAsBinary[0]);
-        break;
-      case "110":
-        nextGen.push(RuleAsBinary[1]);
-        break;
-      case "101":
-        nextGen.push(RuleAsBinary[2]);
-        break;
-        first;
-      case "100":
-        nextGen.push(RuleAsBinary[3]);
-        break;
-      case "011":
-        nextGen.push(RuleAsBinary[4]);
-        break;
-      case "010":
-        nextGen.push(RuleAsBinary[5]);
-        break;
-      case "001":
-        nextGen.push(RuleAsBinary[6]);
-        break;
-      case "000":
-        nextGen.push(RuleAsBinary[7]);
-        break;
-    }
+    nextGen.push(rulesValues[Neighbourhood]);
   }
 
   generations.push(nextGen);
