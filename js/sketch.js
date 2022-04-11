@@ -1,6 +1,6 @@
 const generations = [];
 
-const genLength = 300;
+const genLength = 100;
 
 function setup() {
   const canvas = createCanvas(800, 800);
@@ -13,7 +13,6 @@ function setup() {
   }
 
   generations.push(generation1);
-  Document;
 
   setInterval(nextGeneration, 50);
 }
@@ -39,7 +38,7 @@ function nextGeneration() {
   let Neighbourhood;
   const lastGen = generations[generations.length - 1];
   const nextGen = [];
-  const rule = 30;
+  const rule = 102;
 
   const RuleAsBinary = ("0".repeat(8) + rule.toString(2))
     .slice(-8)
