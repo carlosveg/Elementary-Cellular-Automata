@@ -1,15 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Scripts -->
-    <script src="./js/sketch.js"></script>
-    <script src="./js/p5.min.js"></script>
-    <title>Automatas elementales</title>
+    <meta charset="utf-8" />
+    <title>Elementary Cellular Automata</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script type="text/javascript" src="JS/utilities.js"></script>
+    <script type="text/javascript" src="JS/presets.js"></script>
+    <script type="text/javascript" src="JS/gol-logic.js"></script> -->
+    <script type="module" src="JS/gol-config.js"></script>
+    <!-- Grafica -->
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
   </head>
+
   <body>
-    <div id="canvas"></div>
+    <div id="container">
+      <main id="canvas"></main>
+
+      <section id="parameters-section">
+        <fieldset id="parameters-values">
+          <legend>Parámetros</legend>
+          <div id="inputs">
+            <div class="inputs">
+              <label for="canvasSize">Número de células:</label>
+              <input
+                id="canvasSize"
+                name="canvasSize"
+                type="number"
+                min="400"
+                max="1500"
+              />
+            </div>
+            <div class="inputs">
+              <label for="cellSize">Tamaño de célula:</label>
+              <input
+                id="cellSize"
+                name="cellSize"
+                type="number"
+                min="0"
+                max="9"
+              />
+            </div>
+            <div class="inputs">
+              <label> Delay (ms): </label>
+              <input
+                id="frame-rate"
+                type="range"
+                value="20"
+                min="0"
+                max="50"
+                step="10"
+              />
+            </div>
+            <div class="inputs">
+              <label for="percent-life-reset">Condición inicial: </label>
+              <select id="presets">
+                <option value=""></option>
+                <option value="">A la izquierda</option>
+                <option value="">Al centro</option>
+                <option value="">A la derechaa</option>
+                <option value="">Random</option>
+              </select>
+            </div>
+            <div class="inputs">
+              <label for="percent-life-reset">Probabilidad de vida:</label>
+              <input
+                id="percent-life-reset"
+                name="percent-life-reset"
+                type="number"
+                value="0"
+                min="0"
+                max="1"
+                step="0.01"
+              />
+            </div>
+          </div>
+          <div id="section-rules">
+            <div class="config">
+              <label for="initialRule">Regla:</label>
+              <input
+                id="initialRule"
+                name="initialRule"
+                type="number"
+                min="1"
+                max="255"
+                step="1"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Datos</legend>
+          <label class="labels">
+            Generaciones:
+            <div class="value" id="generations"></div>
+          </label>
+          <label class="labels">
+            Células vivas:
+            <div class="value" id="population"></div>
+          </label>
+          <!-- <label class="labels">
+            X:
+            <div class="value" id="xPos"></div>
+          </label>
+          <label class="labels">
+            Y:
+            <div class="value" id="yPos"></div>
+          </label> -->
+        </fieldset>
+
+        <fieldset class="controls">
+          <legend>Controles</legend>
+          <button id="update-rules-button">Update Rules</button>
+
+          <button id="pause-play-button">Pause/Play</button>
+          <button id="reset-life-button">Aplicar cambios</button>
+          <button id="next-generation">Next Generation</button>
+
+          <div id="colors">
+            <div>
+              <label for="deathStyle">Célula muerta</label>
+              <input type="color" id="deathStyle" name="head" value="#ffffff" />
+            </div>
+            <div>
+              <label for="lifeStyle">Célula viva</label>
+              <input type="color" id="lifeStyle" name="head" value="#000000" />
+            </div>
+            <button id="btnColors">Cambiar colores</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Gráficas</legend>
+
+          <!-- Chart -->
+          <div id="chart">
+            <div id="graph"></div>
+          </div>
+        </fieldset>
+      </section>
+    </div>
   </body>
 </html>
