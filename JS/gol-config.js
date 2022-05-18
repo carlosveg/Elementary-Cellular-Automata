@@ -1,25 +1,17 @@
 import GOL from "./gol.js";
 
 let CURRENT_SIM = null;
+let option = null;
 
 document.addEventListener("DOMContentLoaded", function () {
   const cellSize = 10;
   const numberOfCells = 80;
-  const rule = 30;
-  const chanceOfLife = 0;
   const canvasSize = numberOfCells * cellSize;
+  const rule = 30;
+  const chanceOfLife = 0.5;
+  const initialOption = "center";
 
-  /**
-   * El tamaño del canvas va a ser dinámico, es decir,
-   * igual al # de celdas que quiera el usuario multiplicado por el tamaño de la celda
-   * */
-
-  /**
-   * * En resetSimulation hacer que reciba los colores para ya no cambiarlos en tiempo real
-   * * mejor los cambiamos cada que reinicie el usuario.
-   */
-
-  resetSimulation(canvasSize, cellSize, rule, chanceOfLife);
+  resetSimulation(canvasSize, cellSize, rule, chanceOfLife, initialOption);
   setupEventListeners(numberOfCells, cellSize, rule, chanceOfLife);
 });
 
@@ -27,7 +19,8 @@ function resetSimulation(
   canvasSize,
   cellSize,
   rule,
-  initialChanceOfLife = 0.005
+  initialChanceOfLife,
+  initialOption
 ) {
   const containerCanvas = document.getElementById("canvas");
   const previousCanvas = containerCanvas.querySelector("canvas");
@@ -46,11 +39,17 @@ function resetSimulation(
     chart.appendChild(newGraph);
   }
 
-  //const canvasSize = 800;
   let cols = canvasSize / cellSize;
   let rows = canvasSize / cellSize;
 
-  CURRENT_SIM = new GOL(rows, cols, cellSize, initialChanceOfLife, rule);
+  CURRENT_SIM = new GOL(
+    rows,
+    cols,
+    cellSize,
+    initialChanceOfLife,
+    rule,
+    initialOption
+  );
 
   CURRENT_SIM.canvas.style.height = canvasSize + "px";
   CURRENT_SIM.canvas.style.width = canvasSize + "px";
@@ -89,9 +88,15 @@ function setupEventListeners(
   };
 
   window.addEventListener("keydown", (e) => {
-    if (e.which === 90) {
-      pause();
+    if (e.which === 90) pause();
+    if (e.which === 88) {
+      CURRENT_SIM.advanceRound();
+      CURRENT_SIM.repaint(true);
     }
+  });
+
+  document.querySelector("#initialOption").addEventListener("change", (e) => {
+    option = e.target.value;
   });
 
   document
@@ -112,11 +117,11 @@ function setupEventListeners(
       let canvasSize = rulesForm.querySelector("#canvasSize").value;
       const cellSize = rulesForm.querySelector("#cellSize").value;
       const rule = document.querySelector("#initialRule").value;
+      const option = document.querySelector("#initialOption").value;
 
-      console.log(canvasSize, cellSize, chanceOfLife, rule);
       canvasSize = canvasSize * cellSize;
 
-      resetSimulation(canvasSize, cellSize, +rule, chanceOfLife);
+      resetSimulation(canvasSize, cellSize, +rule, chanceOfLife, option);
     });
 
   document.querySelector("#btnColors").addEventListener("click", (e) => {

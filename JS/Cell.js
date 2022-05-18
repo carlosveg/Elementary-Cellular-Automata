@@ -33,7 +33,6 @@ export default class Cell {
   prepareUpdate() {
     let Neighbourhood = "";
 
-    console.log(this.neighbors, Neighbourhood);
     for (let n of this.neighbors) Neighbourhood += n.alive.toString();
 
     this.nextState = this.ruleFormatted[Neighbourhood];

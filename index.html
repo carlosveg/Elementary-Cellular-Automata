@@ -52,13 +52,10 @@
               />
             </div>
             <div class="inputs">
-              <label for="percent-life-reset">Condición inicial: </label>
-              <select id="presets">
-                <option value=""></option>
-                <option value="">A la izquierda</option>
-                <option value="">Al centro</option>
-                <option value="">A la derechaa</option>
-                <option value="">Random</option>
+              <label>Condición inicial: </label>
+              <select id="initialOption">
+                <option value="center" selected>Al centro</option>
+                <option value="random">Random</option>
               </select>
             </div>
             <div class="inputs">
@@ -85,6 +82,17 @@
                 max="255"
                 step="1"
               />
+            </div>
+            <div id="colors">
+              <div>
+                <label for="deathStyle">Célula muerta</label>
+                <input type="color" id="deathStyle" name="head" value="#000000" />
+              </div>
+              <div>
+                <label for="lifeStyle">Célula viva</label>
+                <input type="color" id="lifeStyle" name="head" value="#ffffff" />
+              </div>
+              <button id="btnColors">Cambiar colores</button>
             </div>
           </div>
         </fieldset>
@@ -117,17 +125,7 @@
           <button id="reset-life-button">Aplicar cambios</button>
           <button id="next-generation">Next Generation</button>
 
-          <div id="colors">
-            <div>
-              <label for="deathStyle">Célula muerta</label>
-              <input type="color" id="deathStyle" name="head" value="#ffffff" />
-            </div>
-            <div>
-              <label for="lifeStyle">Célula viva</label>
-              <input type="color" id="lifeStyle" name="head" value="#000000" />
-            </div>
-            <button id="btnColors">Cambiar colores</button>
-          </div>
+          
         </fieldset>
 
         <fieldset>

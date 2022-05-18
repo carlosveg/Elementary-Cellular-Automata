@@ -39,9 +39,9 @@ fieldset {
 }
 
 .config {
-  display: grid;
-  grid-template-columns: 70% 20% 10%;
-  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 input[type="number"],
@@ -67,6 +67,8 @@ select {
 .controls {
   display: flex;
 }
+
+/* #section-rules{display: flex; flex-direction: column;} */
 
 #colors {
   display: flex;

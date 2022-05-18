@@ -2,7 +2,14 @@ import Cell from "./Cell.js";
 import { Chart } from "./chartConfig.js";
 
 export default class GOL {
-  constructor(rows, cols, pixelSize, initialChanceOfLife, initialRule) {
+  constructor(
+    rows,
+    cols,
+    pixelSize,
+    initialChanceOfLife,
+    initialRule,
+    initialOption
+  ) {
     this.rows = rows;
     this.cols = cols;
     this.pixelSize = pixelSize;
@@ -14,7 +21,7 @@ export default class GOL {
     this.rule = initialRule;
 
     this.grid = [];
-    this.setup(initialChanceOfLife, initialRule);
+    this.setup(initialChanceOfLife, initialRule, initialOption);
 
     // Configuración del canvas
     let width = this.pixelSize * this.cols;
@@ -29,15 +36,24 @@ export default class GOL {
     this.chart2 = new Chart("graph", "Gráfica de densidades (log10)");
   } // fin del constructor
 
-  setup(initialChanceOfLife, initialRule) {
+  setup(initialChanceOfLife, initialRule, initialOption) {
     const generation1 = [];
 
-    for (let i = 0; i < this.rows; i++) {
-      generation1.push(
-        i === Math.floor(this.cols / 2)
-          ? new Cell(1, initialRule)
-          : new Cell(0, initialRule)
-      );
+    if (initialOption === "center") {
+      for (let i = 0; i < this.rows; i++)
+        generation1.push(
+          i === Math.floor(this.cols / 2)
+            ? new Cell(1, initialRule)
+            : new Cell(0, initialRule)
+        );
+    } else {
+      for (let i = 0; i < this.rows; i++) {
+        let alive = Math.random() < initialChanceOfLife;
+
+        generation1.push(
+          alive ? new Cell(1, initialRule) : new Cell(0, initialRule)
+        );
+      }
     }
 
     this.grid.push(generation1);
@@ -45,8 +61,6 @@ export default class GOL {
     for (let j = 0; j < generation1.length; j++) {
       generation1[j].neighbors = this.getNeighbors(j);
     }
-
-    console.log(generation1);
   }
 
   start() {
@@ -75,12 +89,12 @@ export default class GOL {
 
     for (let i = cell - 1; i <= cell + 1; i++) {
       index = i;
+
       if (cell === 0) index = this.cols - 1;
       else if (cell === this.cols - 1) index = 0;
+
       neighbors.push(this.grid[this.generations][index]);
     }
-
-    //console.log(neighbors);
 
     return neighbors;
   }
@@ -90,16 +104,12 @@ export default class GOL {
     let nextGen = [];
     const index = this.generations;
 
-    //console.log(index, this.grid.length, this.grid[index]);
-
     for (let j = 0; j < this.cols; j++) {
       const nextState = this.grid[index][j].prepareUpdate();
       const newCell = new Cell(nextState, this.rule);
       nextGen.push(newCell);
-      //console.log(newCell);
     }
 
-    //console.log(nextGen, nextGen.length);
     this.generations++;
 
     this.grid.push(nextGen);
@@ -119,47 +129,9 @@ export default class GOL {
     document.querySelector("#population").innerHTML = this.population + "";
   }
 
-  getGenerations() {
-    return this.generations;
-  }
-
-  getPopulation() {
-    return this.population;
-  }
-
   repaint(force = false) {
     if (this.mouseIsDown && !force) return;
 
-    /* let byColor = {};
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.cols; j++) {
-        let pixel = this.grid[i][j];
-
-        if (
-          !force &&
-          !pixel.forceRepaint &&
-          pixel.alive === pixel.previousState
-        ) {
-          continue; // No se repinta si no cambió su estado
-        }
-
-        let color = pixel.alive ? pixel.getLifeStyle() : pixel.getDeathStyle();
-        if (byColor[color] === undefined) {
-          byColor[color] = [];
-        }
-
-        byColor[color].push([i, j]);
-        pixel.forceRepaint = false;
-      }
-    }
-
-    for (let color in byColor) {
-      this.canvasCtx.fillStyle = color;
-
-      for (let [row, col] of byColor[color]) {
-        this.paintPixel(row, col);
-      }
-    } */
     for (let j = 0; j < this.grid.length; j++) {
       const gen = this.grid[j];
       for (let i = 0; i < gen.length; i++) {
@@ -178,20 +150,6 @@ export default class GOL {
       this.pixelSize,
       this.pixelSize
     );
-  }
-
-  resetLife(initialCondition) {
-    this.generations = 0;
-
-    /* this.grid.forEach((row) => {
-      row.forEach((pixel) => {
-        pixel.previousState = pixel.alive;
-        pixel.alive = Math.random() < chanceOfLife;
-      });
-    }); */
-
-    this.setup(initialCondition);
-    this.repaint();
   }
 
   setPixelColors(lifeStyle, deathStyle) {
