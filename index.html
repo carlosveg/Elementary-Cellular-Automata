@@ -41,17 +41,6 @@
               />
             </div>
             <div class="inputs">
-              <label> Delay (ms): </label>
-              <input
-                id="frame-rate"
-                type="range"
-                value="20"
-                min="0"
-                max="50"
-                step="10"
-              />
-            </div>
-            <div class="inputs">
               <label>Condición inicial: </label>
               <select id="initialOption">
                 <option value="center" selected>Al centro</option>
@@ -86,11 +75,21 @@
             <div id="colors">
               <div>
                 <label for="deathStyle">Célula muerta</label>
-                <input type="color" id="deathStyle" name="head" value="#000000" />
+                <input
+                  type="color"
+                  id="deathStyle"
+                  name="head"
+                  value="#000000"
+                />
               </div>
               <div>
                 <label for="lifeStyle">Célula viva</label>
-                <input type="color" id="lifeStyle" name="head" value="#ffffff" />
+                <input
+                  type="color"
+                  id="lifeStyle"
+                  name="head"
+                  value="#ffffff"
+                />
               </div>
               <button id="btnColors">Cambiar colores</button>
             </div>
@@ -124,8 +123,6 @@
           <button id="pause-play-button">Pause/Play</button>
           <button id="reset-life-button">Aplicar cambios</button>
           <button id="next-generation">Next Generation</button>
-
-          
         </fieldset>
 
         <fieldset>
