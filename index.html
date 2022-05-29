@@ -71,6 +71,16 @@
                 max="255"
                 step="1"
               />
+              <label for="n">Tamaño de la cadena (atractor):</label>
+              <input
+                id="n"
+                name="n"
+                type="number"
+                min="2"
+                max="15"
+                step="1"
+                value="2"
+              />
             </div>
             <div id="colors">
               <div>
@@ -118,7 +128,7 @@
 
         <fieldset class="controls">
           <legend>Controles</legend>
-          <button id="update-rules-button">Update Rules</button>
+          <button id="btnDownload">Descargar datos attractor</button>
 
           <button id="pause-play-button">Pause/Play</button>
           <button id="reset-life-button">Aplicar cambios</button>

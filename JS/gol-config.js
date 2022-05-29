@@ -1,3 +1,4 @@
+import Attractor from "./attractor.js";
 import GOL from "./gol.js";
 
 let CURRENT_SIM = null;
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const cellSize = 10;
   const numberOfCells = 80;
   const canvasSize = numberOfCells * cellSize;
-  const rule = 30;
+  const rule = 110;
   const chanceOfLife = 0.5;
   const initialOption = "center";
 
@@ -131,5 +132,30 @@ function setupEventListeners(
     CURRENT_SIM.stop();
     CURRENT_SIM.setPixelColors(newLifeColor, newDeathColor);
     CURRENT_SIM.start();
+  });
+
+  document.querySelector("#btnDownload").addEventListener("click", () => {
+    const rule = document.querySelector("#initialRule").value;
+    const n = document.querySelector("#n").value;
+    const attractor = new Attractor(+rule, +n);
+    const element = document.createElement("a");
+    const filename = "from_" + rule + "_n" + n + ".txt";
+    const element2 = document.createElement("a");
+    const filename2 = "to_" + rule + "_n" + n + ".txt";
+    const { from, to } = attractor._getData();
+
+    element.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(from)
+    );
+    element.setAttribute("download", filename);
+    element.click();
+
+    element2.setAttribute(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(to)
+    );
+    element2.setAttribute("download", filename2);
+    element2.click();
   });
 }
