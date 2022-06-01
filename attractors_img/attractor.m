@@ -1,10 +1,10 @@
 clc;
 close all;
 
-from = csvread('./25,61,67,103/from_25_n15.txt');
-to = csvread('./25,61,67,103/to_25_n15.txt');
+from = csvread('./38,52,155,211/from_38_n15.txt');
+to = csvread('./38,52,155,211/to_38_n15.txt');
 
-%disp(from)
+%disp(from);
 
 G = digraph(from, to);
 
