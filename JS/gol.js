@@ -8,7 +8,9 @@ export default class GOL {
     pixelSize,
     initialChanceOfLife,
     initialRule,
-    initialOption
+    initialOption,
+    lifeColor,
+    deathColor
   ) {
     this.rows = rows;
     this.cols = cols;
@@ -19,6 +21,8 @@ export default class GOL {
     this.generations = 0;
     this.population = 0;
     this.rule = initialRule;
+    this.lifeColor = lifeColor;
+    this.deathColor = deathColor;
 
     this.grid = [];
     this.setup(initialChanceOfLife, initialRule, initialOption);
@@ -43,15 +47,17 @@ export default class GOL {
       for (let i = 0; i < this.rows; i++)
         generation1.push(
           i === Math.floor(this.cols / 2)
-            ? new Cell(1, initialRule)
-            : new Cell(0, initialRule)
+            ? new Cell(1, initialRule, this.lifeColor, this.deathColor)
+            : new Cell(0, initialRule, this.lifeColor, this.deathColor)
         );
     } else {
       for (let i = 0; i < this.rows; i++) {
         let alive = Math.random() < initialChanceOfLife;
 
         generation1.push(
-          alive ? new Cell(1, initialRule) : new Cell(0, initialRule)
+          alive
+            ? new Cell(1, initialRule, this.lifeColor, this.deathColor)
+            : new Cell(0, initialRule, this.lifeColor, this.deathColor)
         );
       }
     }
@@ -106,7 +112,12 @@ export default class GOL {
 
     for (let j = 0; j < this.cols; j++) {
       const nextState = this.grid[index][j].prepareUpdate();
-      const newCell = new Cell(nextState, this.rule);
+      const newCell = new Cell(
+        nextState,
+        this.rule,
+        this.lifeColor,
+        this.deathColor
+      );
       nextGen.push(newCell);
     }
 
@@ -150,15 +161,5 @@ export default class GOL {
       this.pixelSize,
       this.pixelSize
     );
-  }
-
-  setPixelColors(lifeStyle, deathStyle) {
-    this.grid.forEach((row) => {
-      row.forEach((pixel) => {
-        pixel.setLifeStyle(lifeStyle);
-        pixel.setDeathStyle(deathStyle);
-        pixel.forceRepaint = true;
-      });
-    });
   }
 }

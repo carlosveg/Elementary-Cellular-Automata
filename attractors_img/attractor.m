@@ -1,8 +1,8 @@
 clc;
 close all;
 
-from = csvread('./43,113/from_43_n15.txt');
-to = csvread('./43,113/to_43_n15.txt');
+from = csvread('./72,237/from_72_n15.txt');
+to = csvread('./72,237/to_72_n15.txt');
 
 %disp(from);
 

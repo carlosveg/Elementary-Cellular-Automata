@@ -1,14 +1,13 @@
 export default class Cell {
-  constructor(alive, rule) {
+  constructor(alive, rule, lifeColor, deathColor) {
     this.alive = alive;
-    this.lifeColor = "#ffffff";
-    this.deathColor = "#000000";
+    this.lifeColor = lifeColor;
+    this.deathColor = deathColor;
     this.rule = rule;
     this.ruleFormatted = this.formatRule(rule);
 
     this.neighbors = [];
     this.nextState = null;
-    this.previousState = null;
     this.forceRepaint = true;
   } // fin del constructor
 
@@ -37,12 +36,6 @@ export default class Cell {
 
     this.nextState = this.ruleFormatted[Neighbourhood];
     return this.ruleFormatted[Neighbourhood];
-  }
-
-  update() {
-    this.previousState = this.alive;
-    this.alive = this.nextState;
-    this.nextState = null;
   }
 
   getLifeStyle() {

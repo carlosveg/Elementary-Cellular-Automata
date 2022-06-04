@@ -21,7 +21,9 @@ function resetSimulation(
   cellSize,
   rule,
   initialChanceOfLife,
-  initialOption
+  initialOption,
+  lifeColor = "#ffffff",
+  deathColor = "#000000"
 ) {
   const containerCanvas = document.getElementById("canvas");
   const previousCanvas = containerCanvas.querySelector("canvas");
@@ -49,7 +51,9 @@ function resetSimulation(
     cellSize,
     initialChanceOfLife,
     rule,
-    initialOption
+    initialOption,
+    lifeColor,
+    deathColor
   );
 
   CURRENT_SIM.canvas.style.height = canvasSize + "px";
@@ -119,20 +123,21 @@ function setupEventListeners(
       const cellSize = rulesForm.querySelector("#cellSize").value;
       const rule = document.querySelector("#initialRule").value;
       const option = document.querySelector("#initialOption").value;
+      const newLifeColor = document.querySelector("#lifeStyle").value;
+      const newDeathColor = document.querySelector("#deathStyle").value;
 
       canvasSize = canvasSize * cellSize;
 
-      resetSimulation(canvasSize, cellSize, +rule, chanceOfLife, option);
+      resetSimulation(
+        canvasSize,
+        cellSize,
+        +rule,
+        chanceOfLife,
+        option,
+        newLifeColor,
+        newDeathColor
+      );
     });
-
-  document.querySelector("#btnColors").addEventListener("click", (e) => {
-    const newLifeColor = document.querySelector("#lifeStyle").value;
-    const newDeathColor = document.querySelector("#deathStyle").value;
-
-    CURRENT_SIM.stop();
-    CURRENT_SIM.setPixelColors(newLifeColor, newDeathColor);
-    CURRENT_SIM.start();
-  });
 
   document.querySelector("#btnDownload").addEventListener("click", () => {
     const rule = document.querySelector("#initialRule").value;

@@ -4,7 +4,6 @@ export default class Attractor {
     this.n = n;
     this.ruleFormatted = this._formatRule(rule);
     this.totalCombinations = Math.pow(2, n);
-    this.nodesVisited = [];
     this.nodes = [];
     this.edges = [];
   }
@@ -58,26 +57,6 @@ export default class Attractor {
     }
 
     return cadenota;
-  }
-
-  _getRelations() {
-    const combinations = this._getCombinations(this.n);
-
-    for (const combination of combinations) {
-      const combinationDecimal = parseInt(combination.join(""), 2);
-
-      let node = new Object();
-      node.id = combinationDecimal;
-      node.label = combinationDecimal.toString();
-      this.nodes.push(node);
-
-      const nextState = this._nextState(combination, this.ruleFormatted);
-
-      let edge = new Object();
-      edge.from = parseInt(combination.join(""), 2);
-      edge.to = parseInt(nextState, 2);
-      this.edges.push(edge);
-    }
   }
 
   _getData() {

@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <title>Elementary Cellular Automata</title>
     <link rel="stylesheet" href="style.css" />
-    <!-- <script type="text/javascript" src="JS/utilities.js"></script>
-    <script type="text/javascript" src="JS/presets.js"></script>
-    <script type="text/javascript" src="JS/gol-logic.js"></script> -->
     <script type="module" src="JS/gol-config.js"></script>
     <!-- Grafica -->
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
@@ -62,25 +59,29 @@
           </div>
           <div id="section-rules">
             <div class="config">
-              <label for="initialRule">Regla:</label>
-              <input
-                id="initialRule"
-                name="initialRule"
-                type="number"
-                min="1"
-                max="255"
-                step="1"
-              />
-              <label for="n">Tamaño de la cadena (atractor):</label>
-              <input
-                id="n"
-                name="n"
-                type="number"
-                min="2"
-                max="15"
-                step="1"
-                value="2"
-              />
+              <div>
+                <label for="initialRule">Regla:</label>
+                <input
+                  id="initialRule"
+                  name="initialRule"
+                  type="number"
+                  min="1"
+                  max="255"
+                  step="1"
+                />
+              </div>
+              <div>
+                <label for="n">Tamaño de la cadena (atractor):</label>
+                <input
+                  id="n"
+                  name="n"
+                  type="number"
+                  min="2"
+                  max="15"
+                  step="1"
+                  value="2"
+                />
+              </div>
             </div>
             <div id="colors">
               <div>
@@ -101,7 +102,6 @@
                   value="#ffffff"
                 />
               </div>
-              <button id="btnColors">Cambiar colores</button>
             </div>
           </div>
         </fieldset>
@@ -116,14 +116,6 @@
             Células vivas:
             <div class="value" id="population"></div>
           </label>
-          <!-- <label class="labels">
-            X:
-            <div class="value" id="xPos"></div>
-          </label>
-          <label class="labels">
-            Y:
-            <div class="value" id="yPos"></div>
-          </label> -->
         </fieldset>
 
         <fieldset class="controls">
