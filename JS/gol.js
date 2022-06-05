@@ -133,8 +133,8 @@ export default class GOL {
       .flat()
       .filter((cell) => cell.alive === 1).length;
 
-    /* this.chart.updateChart(this.generations, this.population);
-    this.chart2.updateChart(this.generations, Math.log10(this.population)); */
+    this.chart.updateChart(this.generations, this.population);
+    this.chart2.updateChart(this.generations, Math.log10(this.population));
 
     document.querySelector("#generations").innerHTML = this.generations + "";
     document.querySelector("#population").innerHTML = this.population + "";
