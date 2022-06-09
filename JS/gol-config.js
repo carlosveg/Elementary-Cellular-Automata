@@ -5,8 +5,8 @@ let CURRENT_SIM = null;
 let option = null;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const cellSize = 4;
-  const numberOfCells = 200;
+  const cellSize = 3;
+  const numberOfCells = 240;
   const canvasSize = numberOfCells * cellSize;
   const rule = 110;
   const chanceOfLife = 0.5;

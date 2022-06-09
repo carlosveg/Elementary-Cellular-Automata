@@ -96,8 +96,8 @@ export default class GOL {
     for (let i = cell - 1; i <= cell + 1; i++) {
       index = i;
 
-      if (cell === 0) index = this.cols - 1;
-      else if (cell === this.cols - 1) index = 0;
+      if (index <= 0) index = this.cols - 1;
+      else if (index >= this.cols - 1) index = 0;
 
       neighbors.push(this.grid[this.generations][index]);
     }
@@ -133,8 +133,8 @@ export default class GOL {
       .flat()
       .filter((cell) => cell.alive === 1).length;
 
-    this.chart.updateChart(this.generations, this.population);
-    this.chart2.updateChart(this.generations, Math.log10(this.population));
+    /* this.chart.updateChart(this.generations, this.population);
+    this.chart2.updateChart(this.generations, Math.log10(this.population)); */
 
     document.querySelector("#generations").innerHTML = this.generations + "";
     document.querySelector("#population").innerHTML = this.population + "";
